@@ -7,7 +7,7 @@ input_data = [int(i) for i in puzzle.input_data.split(',')]
 def partone(input_list):
     from itertools import zip_longest
     def grouper(iterable, n, fillvalue=None):
-        args = [iter(iterable) * n]
+        args = [iter(iterable)] * n
         return zip_longest(*args, fillvalue=fillvalue)
     input_data[1] = 12
     input_data[2] = 2
