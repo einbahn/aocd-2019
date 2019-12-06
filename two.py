@@ -4,30 +4,41 @@ puzzle = Puzzle(year=2019, day=2)
 
 input_data = [int(i) for i in puzzle.input_data.split(',')]
 
-def part_one(list_of_integers):
-    list_of_integers[1] = 12
-    list_of_integers[2] = 2
-    list_iter = iter(list_of_integers)
-    try:
-        opcode = next(list_iter)
-        if opcode == 1:
-            first_position = next(list_iter)
-            second_position = next(list_iter)
-            target_position = next(list_iter)
-            final_value = list_of_integers[first_position] + list_of_integers[second_position]
-            list_of_integers[target_position] = final_value
-        elif opcode == 2:
-            first_position = next(list_iter)
-            second_position = next(list_iter)
-            target_position = next(list_iter)
-            final_value = list_of_integers[first_position] * list_of_integers[second_position]
-            list_of_integers[target_position] = final_value
-        elif opcode == 99:
-            return list_of_integers[0]
-    except:
-        pass
-    return list_of_integers[0]
+def partone(input_list):
+    from itertools import zip_longest
+    def grouper(iterable, n, fillvalue=None):
+        args = [iter(iterable) * n]
+        return zip_longest(*args, fillvalue=fillvalue)
+    input_data[1] = 12
+    input_data[2] = 2
+    for i in grouper(input_data, 4):
+        if i[0] == 1:
+            input_data[i[3]] = input_data[i[1]] + input_data[i[2]]
+        elif i[0] == 2:
+            input_data[i[3]] = input_data[i[1]] * input_data[i[2]]
+        elif i[0] == 99:
+            return input_data[0]
 
+def parttwo(input_list, noun, verb):
+    from itertools import zip_longest
+    def grouper(iterable, n, fillvalue=None):
+        args = [iter(iterable)] * n
+        return zip_longest(*args, fillvalue=fillvalue)
+    input_data[1] = noun
+    input_data[2] = verb
+    for i in grouper(input_data, 4):
+        if i[0] == 1:
+            input_data[i[3]] = input_data[i[1]] + input_data[i[2]]
+        elif i[0] == 2:
+            input_data[i[3]] = input_data[i[1]] * input_data[i[2]]
+        elif i[0] == 99:
+            return input_data[0], noun, verb
 
-print(part_one(input_data))
-
+from itertools import product
+from copy import deepcopy
+for i, j in product([i for i in range(0, 100)], repeat=2):
+    list_copy = deepcopy(input_data)
+    output, noun, verb = parttwo(input_list=list_copy, noun=i, verb=j)
+    if output == 19690720:
+        print("the noun is {} and verb is {}".format(noun, verb))
+        break
