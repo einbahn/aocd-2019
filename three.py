@@ -35,7 +35,6 @@ class Grid(object):
         return self.x, self.y
 
 
-# grid.grid[coord] = [wire1, wire2, wire1_steps, wire2_steps, manhattan_distance]
 def part_one():
     wire1 = [i for i in ip.split('\n')[0].split(',')]
     wire2 = [i for i in ip.split('\n')[1].split(',')]
@@ -65,10 +64,6 @@ def part_two():
     grid = Grid()
     wire1 = [i for i in ip.split('\n')[0].split(',')]
     wire2 = [i for i in ip.split('\n')[1].split(',')]
-    '''
-    wire1 = ['R8', 'U5', 'L5', 'D3']
-    wire2 = ['U7', 'R6', 'D4', 'L4']
-    '''
 
     def manhattan(x, y):
         return abs(x[0] - y[0]) + abs(x[1] - y[1])
