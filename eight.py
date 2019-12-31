@@ -10,9 +10,9 @@ shape = (int(len(data) / 6 / 25), 6, 25)
 arr = np.array(data).reshape(shape)
 
 # part 1
-min_zero = min(arr, key=lambda x: len(np.where(x == 0)[0]))
-ones = len(np.where(min_zero == 1)[0])
-twos = len(np.where(min_zero == 2)[0])
+min_zero = min(arr, key=lambda x: len(x[x == 0]))
+ones = len(min_zero[min_zero == 1])
+twos = len(min_zero[min_zero == 2])
 print("the result of part one: {} * {} = {}".format(ones, twos, ones * twos))
 
 # part 2
