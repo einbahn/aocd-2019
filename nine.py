@@ -29,16 +29,14 @@ def IntcodeComputer(data):
         modes, opcode = parse_opcode(data[index])
         argc = lookup_argc(argc_lookup, opcode)
         argv = make_argv(data, index, argc, modes, relative_base)
-        if opcode == 99:
-            break
-        elif opcode == 4:
-            print("{}".format(data[argv[0]], end=" "))
-        elif opcode == 3:
-            data[argv[0]] = int(input("Enter a number: "))
-        elif opcode == 1:
+        if opcode == 1:
             data[argv[2]] = data[argv[0]] + data[argv[1]]
         elif opcode == 2:
             data[argv[2]] = data[argv[0]] * data[argv[1]]
+        elif opcode == 3:
+            data[argv[0]] = int(input("Enter a number: "))
+        elif opcode == 4:
+            print("{}".format(data[argv[0]], end=" "))
         elif opcode == 5:
             if data[argv[0]] != 0:
                 index = data[argv[1]]
@@ -59,6 +57,8 @@ def IntcodeComputer(data):
                 data[argv[2]] = 0
         elif opcode == 9:
             relative_base += data[argv[0]]
+        elif opcode == 99:
+            break
         index += argc
         continue
 
